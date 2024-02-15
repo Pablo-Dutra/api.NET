@@ -40,3 +40,4 @@ D:\dotNetVueJS\api\WebApplication1\WebApplication1\obj\Debug\net6.0\refint\WebAp
 D:\dotNetVueJS\api\WebApplication1\WebApplication1\obj\Debug\net6.0\WebApplication1.pdb
 D:\dotNetVueJS\api\WebApplication1\WebApplication1\obj\Debug\net6.0\WebApplication1.genruntimeconfig.cache
 D:\dotNetVueJS\api\WebApplication1\WebApplication1\obj\Debug\net6.0\ref\WebApplication1.dll
+D:\dotNetVueJS\api\WebApplication1\WebApplication1\obj\Debug\net6.0\WebApplication1.sourcelink.json

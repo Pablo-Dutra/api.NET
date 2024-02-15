@@ -176,5 +176,51 @@ namespace WebApplication1.Controllers
             return new JsonResult("Deletado com sucesso!");
         }
 
+
+        // ROTA PARA EDITAR UMA NOTA
+        [HttpPut]
+        [Route("EditNotes/{id}")]
+        public JsonResult EditNotes(int id, [FromForm] string updatedNotes)
+        {
+            // Define a consulta SQL para atualizar uma nota na tabela dbo.Notes com base no ID fornecido
+            string query = "update dbo.Notes set description = @updatedNotes where id=@id";
+
+            // Obtém a string de conexão do arquivo de configuração (appsettings.json) usando a chave "todoAppDBCon"
+            string sqlDataSource = _configuration.GetConnectionString("todoAppDBCon");
+
+            // Declara um objeto SqlDataReader para armazenar os resultados da consulta SQL
+            SqlDataReader myReader;
+
+            // Usa a instrução 'using' para garantir que o recurso SqlConnection seja fechado corretamente após o uso
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                // Abre a conexão com o banco de dados
+                myCon.Open();
+
+                // Cria um novo objeto SqlCommand com a consulta SQL e a conexão SQL
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    // Adiciona parâmetros @id e @updatedNotes à consulta SQL e define seus valores
+                    myCommand.Parameters.AddWithValue("@id", id);
+                    myCommand.Parameters.AddWithValue("@updatedNotes", updatedNotes);
+
+                    // Executa a consulta SQL
+                    int rowsAffected = myCommand.ExecuteNonQuery();
+
+                    // Fecha a conexão com o banco de dados
+                    myCon.Close();
+
+                    // Se nenhuma linha foi afetada pela atualização, retorna um erro indicando que o registro não foi encontrado
+                    if (rowsAffected == 0)
+                    {
+                        return new JsonResult("Registro não encontrado.");
+                    }
+                }
+            }
+
+            // Retorna um JsonResult indicando que a nota foi atualizada com sucesso
+            return new JsonResult("Atualizado com sucesso!");
+        }
+
     }
 }

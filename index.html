@@ -3,22 +3,30 @@
 <div id="app">
     <div class="container">
         <h2>Aplicativo de Notas</h2>
-        <div class="card">
-            <div class="card-header">Adicionar Notas</div>
+        <div class="card m-2">
+            <div class="card-header"><strong>Adicionar nova nota</strong></div>
             <div class="card-body">
-                <p class="card-text"><input type="text" class="form-control" id="newNotes" placeholder="Digite uma nova nota"></p>
+                <p class="card-text">
+                    <label for="newNotes">Descrição</label>
+                    <input type="text" class="form-control" id="newNotes" placeholder="Digite a descrição da nota aqui...">
+                </p>
                 <button type="submit" @click="addNewNotes()" class="btn btn-success">Adicionar</button>
             </div>
         </div>
-
-        <div class="card">
-            <div class="card-header">Notas Adicionadas</div>
+        <div class="card m-2">
+            <div class="card-header"><strong>Notas</strong></div>
             <div class="card-body">
                 <p class="card-text">
                 <ul class="list-group list-group-flush">
                     <li v-for="note in notes" class="list-group-item">
-                        <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteNotes(note.id)">Excluir</button>
-                        #{{note.id}} - Descrição: <strong>{{note.description}}</strong>
+                        <label for="'updatedNotes_' + note.id">Descrição</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control m-1" :id="'updatedNotes_' + note.id" :value="note.description">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-success m-1" @click="editNotes(note.id)">Salvar</button>
+                                <button type="button" class="btn btn-outline-danger  m-1" @click="deleteNotes(note.id)">Excluir</button>
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 </p>
@@ -76,6 +84,19 @@
                     }
                 )
             },
+            // Editar uma nota
+            async editNotes(id) {
+                var updatedNotes = document.getElementById("updatedNotes_" + id).value;
+                const formData = new FormData();
+                formData.append("updatedNotes", updatedNotes);
+                axios.put(API_URL + "api/TodoApp/EditNotes/" + id, formData).then(
+                    (response) => {
+                        this.refreshData();
+                        alert(response.data);
+                    }
+                )
+            },
+
         },
         mounted: function () {
             this.refreshData();

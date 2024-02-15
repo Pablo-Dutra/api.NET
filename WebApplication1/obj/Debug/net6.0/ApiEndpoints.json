@@ -33,6 +33,27 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.TodoAppController",
+    "Method": "EditNotes",
+    "RelativePath": "api/TodoApp/EditNotes/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updatedNotes",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TodoAppController",
     "Method": "GetNotes",
     "RelativePath": "api/TodoApp/GetNotes",
     "HttpMethod": "GET",
